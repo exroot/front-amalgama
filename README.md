@@ -1,23 +1,50 @@
-# Next.js + Tailwind CSS Example
+# Amalgama
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
 
-## Deploy your own
+### Stack
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+-   Next.js
+-   Tailwind
+-   Typescript
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+### Setup
 
-## How to use
+#### 1. Clone
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-# or
-pnpm create next-app -- --example with-tailwindcss with-tailwindcss-app
+```
+git clone git@github.com:exroot/front-amalgama.git
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+#### 2. Install dependencies
+
+```
+npm run install
+```
+
+or
+
+```
+yarn install
+```
+
+#### 3. ENV
+
+Run the backend then generate a `.env` file at the project root with the next content:
+
+```
+NEXT_PUBLIC_BACKEND_URL=http://127.0.0.1:8000
+```
+
+#### 4. Execution
+
+```
+npm run dev
+```
+
+or
+
+```
+yarn dev
+```
+
+Open http://localhost:3000 with your browser to see the result.
