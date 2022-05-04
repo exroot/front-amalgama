@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
-import { getSession } from '@/services/authenticationServices'
-import { ENDPOINTS } from '@/utils/endpoints'
-import redirectToRoute from '@/utils/redirectTo'
+import { getSession } from 'src/services/authenticationServices'
+import { ENDPOINTS } from 'src/utils/endpoints'
+import redirectToRoute from 'src/utils/redirectTo'
 import useSWR from 'swr'
 
 const useSession = ({

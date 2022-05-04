@@ -1,5 +1,5 @@
-import { getRegistries } from '@/services/registriesServices'
-import { ENDPOINTS } from '@/utils/endpoints'
+import { getRegistries } from 'src/services/registriesServices'
+import { ENDPOINTS } from 'src/utils/endpoints'
 import useSWR from 'swr'
 
 const useRegistries = ({

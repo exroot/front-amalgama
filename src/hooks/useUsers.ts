@@ -1,19 +1,15 @@
-import { getUsers } from '@/services/usersServices'
-import { ENDPOINTS } from '@/utils/endpoints'
+import { getUsers } from 'src/services/usersServices'
+import { ENDPOINTS } from 'src/utils/endpoints'
 import useSWR from 'swr'
 
-const useUsers = (
-  page: any = 1,
-  month: any = null,
-  category: any = null,
-  special: any = null
-) => {
-  const { data, error } = useSWR(
-    `${ENDPOINTS.users}?page=${page}&month=${month}&category=${category}&special=${special}`,
+const useUsers = ({ page = 1, limit = 10, showMeta = true }: any) => {
+  const { data, error, mutate } = useSWR(
+    `${ENDPOINTS.users}?page=${page}&limit=${limit}&show_meta=${showMeta}`,
     getUsers
   )
   return {
     data,
+    mutate,
     error,
     isLoading: !data && !error,
   }
