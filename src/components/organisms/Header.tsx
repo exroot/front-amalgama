@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import UserMenu from '@/components/molecules/UserMenu'
+import UserMenu from 'src/components/molecules/UserMenu'
 
 const Header = ({ sidebarOpen, setSidebarOpen }: any) => {
   const [searchModalOpen, setSearchModalOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-200 bg-white">
+    <header className="sticky top-0 z-30 border-b border-slate-200 bg-white" data-testid="header">
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="-mb-px flex h-16 items-center justify-between">
           {/* Header: Left side */}

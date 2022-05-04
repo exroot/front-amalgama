@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import Sidebar from '@/components/organisms/Sidebar'
-import Header from '@/components/organisms/Header'
+import Sidebar from 'src/components/organisms/Sidebar'
+import Header from 'src/components/organisms/Header'
 
 const Layout = ({ children }: any) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)

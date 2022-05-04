@@ -9,6 +9,7 @@ const SidebarLinkGroup = ({ children, activecondition }: any) => {
 
   return (
     <li
+    data-testid="sidebar-link-group"
       className={`mb-0.5 rounded-sm px-3 py-2 last:mb-0 ${
         activecondition && 'bg-slate-900'
       }`}

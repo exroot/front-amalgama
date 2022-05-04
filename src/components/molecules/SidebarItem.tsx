@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import SidebarLinkGroup from '@/components/atoms/SidebarLinkGroup'
+import SidebarLinkGroup from 'src/components/atoms/SidebarLinkGroup'
 
 const SidebarItem = ({
   label,
@@ -82,6 +82,7 @@ const SidebarItem = ({
   }
   return (
     <li
+      data-testid="sidebar-item"
       className={`mb-0.5 rounded-sm px-3 py-2 last:mb-0 ${
         pathname.includes(route) && 'bg-slate-900'
       }`}

@@ -1,91 +1,86 @@
-import { useRouter } from 'next/router'
-import { useEffect, useState, useRef } from 'react'
-import SidebarItem from '@/components/molecules/SidebarItem'
-import useSession from '@/hooks/useSession'
+import { useRouter } from "next/router";
+import { useEffect, useState, useRef } from "react";
+import SidebarItem from "src/components/molecules/SidebarItem";
+import useSession from "src/hooks/useSession";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: any) => {
-  const { pathname } = useRouter()
-  const trigger = useRef(null)
-  const sidebar = useRef(null)
-  const { user } = useSession({})
-  const [sidebarExpanded, setSidebarExpanded] = useState(false)
+  const router = useRouter();
+  const trigger = useRef(null);
+  const sidebar = useRef(null);
+  const { user } = useSession({});
+  const [sidebarExpanded, setSidebarExpanded] = useState(false);
   const [items, _] = useState([
     {
-      route: '/dashboard',
-      label: 'Index',
+      route: "/dashboard",
+      label: "Index",
     },
     {
-      route: '/registries',
-      label: 'Incomes/Expenses',
+      route: "/registries",
+      label: "Incomes/Expenses",
     },
     {
-      route: '/reports',
-      label: 'Reports',
+      route: "/reports",
+      label: "Reports",
     },
     {
-      route: '/admin',
-      label: 'Administration',
+      route: "/admin",
+      label: "Administration",
       childs: [
         {
-          route: '/admin/categories',
-          label: 'Categories',
+          route: "/admin/categories",
+          label: "Categories",
         },
-        { route: '/admin/currencies', label: 'Currencies' },
+        { route: "/admin/currencies", label: "Currencies" },
         {
-          route: '/admin/clients',
-          label: 'Clients',
+          route: "/admin/clients",
+          label: "Clients",
         },
       ],
     },
-  ])
+  ]);
   useEffect(() => {
-    const storedSidebarExpanded = localStorage.getItem('sidebar-expanded')
+    const storedSidebarExpanded = localStorage.getItem("sidebar-expanded");
     setSidebarExpanded(
-      storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true'
-    )
-  }, [])
+      storedSidebarExpanded === null ? false : storedSidebarExpanded === "true"
+    );
+  }, []);
 
   // close on click outside
   useEffect(() => {
     const clickHandler = ({ target }: any) => {
-      if (!sidebar.current || !trigger.current) return
-      if (
-        !sidebarOpen ||
-        sidebar.current.contains(target) ||
-        trigger.current.contains(target)
-      )
-        return
-      setSidebarOpen(false)
-    }
-    document.addEventListener('click', clickHandler)
-    return () => document.removeEventListener('click', clickHandler)
-  }, [])
+      if (!sidebar.current || !trigger.current) return;
+      if (!sidebarOpen) return;
+      setSidebarOpen(false);
+    };
+    document.addEventListener("click", clickHandler);
+    return () => document.removeEventListener("click", clickHandler);
+  }, []);
 
   // close if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ keyCode }: any) => {
-      if (!sidebarOpen || keyCode !== 27) return
-      setSidebarOpen(false)
-    }
-    document.addEventListener('keydown', keyHandler)
-    return () => document.removeEventListener('keydown', keyHandler)
-  }, [])
+      if (!sidebarOpen || keyCode !== 27) return;
+      setSidebarOpen(false);
+    };
+    document.addEventListener("keydown", keyHandler);
+    return () => document.removeEventListener("keydown", keyHandler);
+  }, []);
 
   useEffect(() => {
-    localStorage.setItem('sidebar-expanded', sidebarExpanded)
+    localStorage.setItem("sidebar-expanded", sidebarExpanded.toString());
     if (sidebarExpanded) {
-      document.querySelector('body').classList.add('sidebar-expanded')
+      document?.querySelector("body")?.classList.add("sidebar-expanded");
     } else {
-      document.querySelector('body').classList.remove('sidebar-expanded')
+      document?.querySelector("body")?.classList.remove("sidebar-expanded");
     }
-  }, [sidebarExpanded])
+  }, [sidebarExpanded]);
 
   return (
-    <div>
+    <div data-testid="sidebar">
       {/* Sidebar backdrop (mobile only) */}
       <div
         className={`fixed inset-0 z-40 bg-slate-900 bg-opacity-30 transition-opacity duration-200 lg:z-auto lg:hidden ${
-          sidebarOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
+          sidebarOpen ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
         aria-hidden="true"
       ></div>
@@ -95,7 +90,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: any) => {
         id="sidebar"
         ref={sidebar}
         className={`no-scrollbar lg:sidebar-expanded:!w-64 absolute left-0 top-0 z-40 flex h-screen w-64 shrink-0 transform flex-col overflow-y-scroll bg-slate-800 p-4 transition-all duration-200 ease-in-out lg:static lg:left-auto lg:top-auto lg:w-20 lg:translate-x-0 lg:overflow-y-auto 2xl:!w-64 ${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-64'
+          sidebarOpen ? "translate-x-0" : "-translate-x-64"
         }`}
       >
         {/* Sidebar header */}
@@ -138,20 +133,20 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: any) => {
             <ul className="mt-3">
               {items &&
                 items.map((item) => {
-                  if (item.label.includes('Admin') && user?.is_admin === true) {
-                    return null
+                  if (item.label.includes("Admin") && user?.is_admin !== true) {
+                    return null;
                   }
                   return (
                     <SidebarItem
                       key={item.label}
                       label={item.label}
                       route={item.route}
-                      pathname={pathname}
+                      pathname={router?.pathname || ''}
                       childs={item.childs}
                       sidebarExpanded={sidebarExpanded}
                       setSidebarExpanded={setSidebarExpanded}
                     />
-                  )
+                  );
                 })}
             </ul>
           </div>
@@ -177,7 +172,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: any) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

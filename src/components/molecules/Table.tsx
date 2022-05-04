@@ -1,18 +1,18 @@
-import React from 'react'
+import React, { useMemo } from 'react'
+import { useSortBy, useTable } from 'react-table'
 
-const Table = (
-  {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-    renderCell,
-  }: any,
-  ...props: any
-) => {
+const Table = ({
+  getTableProps,
+  getTableBodyProps,
+  headerGroups,
+  rows,
+  prepareRow,
+  renderCell,
+  ...props
+}: any) => {
   return (
     <table
+      data-testid="table"
       className="w-full rounded-lg text-left text-sm text-gray-500 dark:text-gray-400"
       {...getTableProps()}
     >
@@ -74,4 +74,32 @@ const Table = (
   )
 }
 
-export default Table
+const TableInstance = ({ columnsDisplayed, tableData, columnsLabels }: any) => {
+  const [columns, data] = useMemo(() => {
+    const columns = [...columnsLabels].filter((column) =>
+      columnsDisplayed.includes(column.accessor)
+    )
+    return [columns, tableData]
+  }, [columnsDisplayed, tableData])
+
+  const renderCell = (cell: any) => {
+    return cell.render('Cell')
+  }
+
+  const tableInstance = useTable({ columns, data }, useSortBy)
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    tableInstance
+
+  return (
+    <Table
+      getTableProps={getTableProps}
+      getTableBodyProps={getTableBodyProps}
+      headerGroups={headerGroups}
+      rows={rows}
+      prepareRow={prepareRow}
+      renderCell={renderCell}
+    />
+  )
+}
+
+export default TableInstance
