@@ -1,29 +1,35 @@
-import Label from '@/components/atoms/Label'
-import SubTitle from '@/components/atoms/Subtitle'
-import Title from '@/components/atoms/Title'
-import FormError from '@/components/atoms/ErrorMessage'
-import FormGroup from '@/components/molecules/FormGroup'
-import { signup } from '@/services/authenticationServices'
-import RegisterSchema from '@/validations/register.schema'
-import { ErrorMessage, Form, Formik } from 'formik'
-import Head from 'next/head'
-import Link from 'next/link'
-import React from 'react'
-import Button from '@/components/atoms/Button'
-import FormField from '@/components/molecules/FormField'
+import Label from "src/components/atoms/Label";
+import SubTitle from "src/components/atoms/Subtitle";
+import Title from "src/components/atoms/Title";
+import FormError from "src/components/atoms/FormError";
+import FormGroup from "src/components/molecules/FormGroup";
+import { signup } from "src/services/authenticationServices";
+import RegisterSchema from "src/validations/register.schema";
+import { Form, Formik } from "formik";
+import Head from "next/head";
+import Link from "next/link";
+import React from "react";
+import Button from "src/components/atoms/Button";
+import FormField from "src/components/molecules/FormField";
+import { useToasts } from "react-toast-notifications";
+import redirectTo from "src/utils/redirectTo";
 
 const Register = () => {
+  const { addToast } = useToasts();
   const handleSubmit = async (values: any, actions: any) => {
     try {
-      const { data } = await signup(values)
-      return data
+      await signup(values);
+      addToast("User registered succesfully.", {
+        appearance: "success",
+      });
+      redirectTo("/login");
     } catch (err: any) {
       if (err.response.data.errors.email) {
-        actions.setFieldError('email', err.response.data.errors.email)
+        actions.setFieldError("email", err.response.data.errors.email);
       }
-      throw err
+      throw err;
     }
-  }
+  };
   return (
     <>
       <Head>
@@ -37,7 +43,7 @@ const Register = () => {
                 <Title>Register</Title>
               </div>
               <SubTitle className="my-2 block text-center text-black lg:hidden">
-                You already have an account?{' '}
+                You already have an account?{" "}
                 <Link href="/login" passHref>
                   <a className="text-accent cursor-pointer font-bold hover:underline">
                     Log In
@@ -46,18 +52,18 @@ const Register = () => {
               </SubTitle>
               <Formik
                 initialValues={{
-                  email: '',
-                  name: '',
-                  password: '',
-                  password_confirmation: '',
-                  profile_image: '',
-                  date_of_birth: '',
+                  email: "",
+                  name: "",
+                  password: "",
+                  password_confirmation: "",
+                  profile_image: "",
+                  date_of_birth: "",
                 }}
                 validationSchema={RegisterSchema}
                 validateOnBlur={false}
                 onSubmit={async (values, actions) => {
-                  console.log(values)
-                  await handleSubmit(values, actions)
+                  console.log(values);
+                  await handleSubmit(values, actions);
                 }}
               >
                 {({ errors, touched, isSubmitting }) => (
@@ -72,10 +78,10 @@ const Register = () => {
                           errors={errors}
                           touched={touched}
                         />
-                        <ErrorMessage
-                          name="email"
-                          render={(msg) => <FormError>{msg}</FormError>}
-                        />
+
+                        {touched.email && errors.email && (
+                          <FormError>{errors.email}</FormError>
+                        )}
                       </FormGroup>
                       <FormGroup>
                         <Label htmlFor="name">Name</Label>
@@ -85,10 +91,9 @@ const Register = () => {
                           errors={errors}
                           touched={touched}
                         />
-                        <ErrorMessage
-                          name="name"
-                          render={(msg) => <FormError>{msg}</FormError>}
-                        />
+                        {touched.name && errors.name && (
+                          <FormError>{errors.name}</FormError>
+                        )}
                       </FormGroup>
                     </div>
                     <div className="grid w-full grid-cols-1 gap-2 md:grid-cols-2">
@@ -101,10 +106,9 @@ const Register = () => {
                           errors={errors}
                           touched={touched}
                         />
-                        <ErrorMessage
-                          name="password"
-                          render={(msg) => <FormError>{msg}</FormError>}
-                        />
+                        {touched.password && errors.password && (
+                          <FormError>{errors.password}</FormError>
+                        )}
                       </FormGroup>
                       <FormGroup>
                         <Label htmlFor="password_confirmation">
@@ -116,10 +120,12 @@ const Register = () => {
                           errors={errors}
                           touched={touched}
                         />
-                        <ErrorMessage
-                          name="password_confirmation"
-                          render={(msg) => <FormError>{msg}</FormError>}
-                        />
+                        {touched.password_confirmation &&
+                          errors.password_confirmation && (
+                            <FormError>
+                              {errors.password_confirmation}
+                            </FormError>
+                          )}
                       </FormGroup>
                     </div>
                     <div className="grid w-full grid-cols-1 gap-2 md:grid-cols-2">
@@ -132,10 +138,9 @@ const Register = () => {
                           errors={errors}
                           touched={touched}
                         />
-                        <ErrorMessage
-                          name="profile_image"
-                          render={(msg) => <FormError>{msg}</FormError>}
-                        />
+                        {touched.profile_image && errors.profile_image && (
+                          <FormError>{errors.profile_image}</FormError>
+                        )}
                       </FormGroup>
                       <FormGroup>
                         <Label htmlFor="date_of_birth">Date of birth</Label>
@@ -145,16 +150,15 @@ const Register = () => {
                           errors={errors}
                           touched={touched}
                         />
-                        <ErrorMessage
-                          name="date_of_birth"
-                          render={(msg) => <FormError>{msg}</FormError>}
-                        />
+                        {touched.date_of_birth && errors.date_of_birth && (
+                          <FormError>{errors.date_of_birth}</FormError>
+                        )}
                       </FormGroup>
                     </div>
                     {/* Submit button */}
                     <FormGroup lastSibling>
                       <div className="flex justify-center">
-                        <Button type={!isSubmitting ? 'submit' : 'button'}>
+                        <Button type={!isSubmitting ? "submit" : "button"}>
                           Register
                         </Button>
                       </div>
@@ -167,7 +171,7 @@ const Register = () => {
         </div>
       </main>
     </>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;
