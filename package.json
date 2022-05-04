@@ -1,17 +1,21 @@
 {
+  "name": "next-ts-boilerplate",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint",
+    "test": "jest"
   },
   "dependencies": {
-    "axios": "^0.26.1",
+    "axios": "^0.27.2",
     "formik": "^2.2.9",
     "framer-motion": "^6.3.3",
-    "next": "latest",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "next": "^12.1.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
     "react-table": "^7.7.0",
     "react-toast-notifications": "^2.5.1",
     "react-transition-group": "^4.4.2",
@@ -20,16 +24,20 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@types/node": "17.0.4",
-    "@types/react": "17.0.38",
+    "@testing-library/dom": "^8.1.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "@types/react": "17.0.15",
     "@types/react-table": "^7.7.11",
-    "@types/react-transition-group": "^4.4.4",
     "@types/styled-components": "^5.1.25",
     "autoprefixer": "^10.4.0",
+    "eslint": "7.32.0",
+    "eslint-config-next": "11.0.1",
+    "jest": "^27.0.6",
+    "node-mocks-http": "^1.10.1",
     "postcss": "^8.4.5",
-    "prettier": "^2.5.1",
-    "prettier-plugin-tailwindcss": "^0.1.1",
-    "tailwindcss": "^3.0.7",
-    "typescript": "4.5.4"
+    "tailwindcss": "^3.0.2",
+    "typescript": "4.3.5"
   }
 }
