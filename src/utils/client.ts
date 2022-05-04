@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { ENDPOINTS } from '@/utils/endpoints'
+import { ENDPOINTS } from 'src/utils/endpoints'
 
 const CALL_TIMEOUT = 15000
 
