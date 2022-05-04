@@ -1,42 +1,43 @@
-import useHttpClient from '@/utils/client'
-import { ENDPOINTS } from '@/utils/endpoints'
+import useHttpClient from "src/utils/client";
+import { ENDPOINTS } from "src/utils/endpoints";
+import axios from "axios";
 
-const getRegistries = async (url) => {
-  const httpClient = useHttpClient()
+const getRegistries = async (url: string) => {
+  const httpClient = useHttpClient() || axios.create();
   try {
-    const { data } = await httpClient.get(url)
-    return data
+    const { data } = await httpClient.get(url);
+    return data;
   } catch (err) {
-    console.error('Error at getRegistries: ', err)
-    throw err
+    console.error("Error at getRegistries: ", err);
+    throw err;
   }
-}
+};
 
 const getRegistry = async (registryId: number) => {
-  const httpClient = useHttpClient()
+  const httpClient = useHttpClient() || axios.create();
   try {
     const { data } = await httpClient.get(
       `${ENDPOINTS.registries}/${registryId}/`
-    )
-    return data
+    );
+    return data;
   } catch (err) {
-    console.error('Error at getRegistry: ', err)
-    throw err
+    console.error("Error at getRegistry: ", err);
+    throw err;
   }
-}
+};
 
 const saveRegistry = async (registryData: any) => {
-  const httpClient = useHttpClient()
+  const httpClient = useHttpClient() || axios.create();
   try {
     const { data } = await httpClient.post(
       `${ENDPOINTS.registries}`,
       registryData
-    )
-    return data
+    );
+    return data;
   } catch (err) {
-    console.error('Error at saveRegistry: ', err)
-    throw err
+    console.error("Error at saveRegistry: ", err);
+    throw err;
   }
-}
+};
 
-export { getRegistries, getRegistry, saveRegistry }
+export { getRegistries, getRegistry, saveRegistry };

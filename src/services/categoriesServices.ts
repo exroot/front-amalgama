@@ -1,70 +1,72 @@
-import useHttpClient from '@/utils/client'
-import { ENDPOINTS } from '@/utils/endpoints'
+import useHttpClient from "src/utils/client";
+import { ENDPOINTS } from "src/utils/endpoints";
+import axios from "axios";
 
 const getCategories = async (url: any) => {
-  const httpClient = useHttpClient()
-  console.log('get categorieeeees')
+  console.log("url: ", url);
+  const httpClient = useHttpClient() || axios.create();
   try {
-    const { data } = await httpClient.get(`${url}`)
-    return data
+    const { data } = await httpClient.get(url);
+    console.log("data: ", data);
+    return data;
   } catch (err) {
-    console.error('Error at getCategories: ', err)
-    throw err
+    console.error("Error at getCategories: ", err);
+    throw err;
   }
-}
+};
 
 const getCategory = async (categoryId: number) => {
-  const httpClient = useHttpClient()
+  const httpClient = useHttpClient() || axios.create();
   try {
     const { data } = await httpClient.get(
       `${ENDPOINTS.categories}/${categoryId}/`
-    )
-    return data
+    );
+    return data;
   } catch (err) {
-    console.error('Error at getCategory: ', err)
-    throw err
+    console.error("Error at getCategory: ", err);
+    throw err;
   }
-}
+};
 
 const saveCategory = async (categoryData: any) => {
-  const httpClient = useHttpClient()
+  const httpClient = useHttpClient() || axios.create();
   try {
     const { data } = await httpClient.post(
       `${ENDPOINTS.categories}`,
       categoryData
-    )
-    return data
+    );
+    return data;
   } catch (err) {
-    console.error('Error at saveCategory: ', err)
-    throw err
+    console.error("Error at saveCategory: ", err);
+    throw err;
   }
-}
+};
 
 const updateCategory = async (categoryId: number, categoryData: any) => {
-  const httpClient = useHttpClient()
+  const httpClient = useHttpClient() || axios.create();
   try {
     const { data } = await httpClient.put(
       `${ENDPOINTS.categories}/${categoryId}`
-    )
-    return data
+    );
+    return data;
   } catch (err) {
-    console.error('Error at updateCategory: ', err)
-    throw err
+    console.error("Error at updateCategory: ", err);
+    throw err;
   }
-}
+};
 
 const deleteCategory = async (categoryId: number) => {
-  const httpClient = useHttpClient()
+  const httpClient = useHttpClient() || axios.create();
   try {
     const { data } = await httpClient.delete(
       `${ENDPOINTS.categories}/${categoryId}`
-    )
-    return data
+    );
+    return data;
   } catch (err) {
-    console.error('Error at deleteCategory: ', err)
-    throw err
+    console.error("Error at deleteCategory: ", err);
+    throw err;
   }
-}
+};
 
 export {
   getCategories,
@@ -72,4 +74,4 @@ export {
   saveCategory,
   updateCategory,
   deleteCategory,
-}
+};
